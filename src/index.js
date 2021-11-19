@@ -1,17 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import 'typeface-roboto';
+import configureStore, { history } from './store/configureStore';
+import Root from './Root';
+import moment from 'moment';
+moment.locale('id');
+require('./favicon.ico');
+export const store = configureStore();
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+render(
+  <AppContainer>
+    <Root history={history} store={store} />
+  </AppContainer>,
+  document.getElementById('app')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+if (module.hot) {
+  module.hot.accept('./Root', () => {
+    const NewRoot = require('./Root').default;
+    render(
+      <AppContainer>
+        <NewRoot history={history} store={store} />
+      </AppContainer>,
+      document.getElementById('app')
+    );
+  });
+}

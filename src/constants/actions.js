@@ -1,0 +1,7 @@
+const actions = {
+  TODO_LIST_REQUEST: 'TODO_LIST_REQUEST',
+  TODO_LIST_SUCCESS: 'TODO_LIST_SUCCESS',
+  TODO_LIST_ERROR: 'TODO_LIST_ERROR'
+};
+
+export default actions;
